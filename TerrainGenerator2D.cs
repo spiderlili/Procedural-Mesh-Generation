@@ -14,7 +14,8 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 	[SerializeField] private float meshHeight = 1;
 
 	[SerializeField, Range(1, 8)] private int octaves = 1; //won't notice the effect if higher than 8
-	[SerializeField] private float lacunarity = 2;
+	//lacunarity determines how quickly the frequency increases for each successive octave in a Perlin-noise function
+	[SerializeField] private float lacunarity = 2; //For best results, set the lacunarity to a number between 1.5 and 3.5.
 	[SerializeField, Range(0, 1)] private float gain = 0.5f; //needs to be between 0 and 1 so that each octave contributes less to the final shape.
 	[SerializeField] private float perlinScale = 1;
 
@@ -37,14 +38,14 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 		float x, y = 0;
 		Vector3[] vs = new Vector3[numVertices]; //store the vertices in the order of top row then bottom row
 
-		Random.InitState (seed);
+		Random.InitState (seed); //editable control for variation - different seeds give different series of random numbers 
 		NoiseGenerator noise = new NoiseGenerator (octaves, lacunarity, gain, perlinScale); 
 		
 		
 		for (int i=0; i<resolution; i++)
 		{
 			x = ((float)i / resolution) * xScale; //cast i to a float
-			y = yScale * noise.GetFractalNoise (x, 0);
+			y = yScale * noise.GetFractalNoise (x, 0); //noise.GetPerlinNoise
 
 			//top - add the top vertices to the ith index of vs, z component is 0 for 2D
 			vs [i] = new Vector3 (x, y, 0);
