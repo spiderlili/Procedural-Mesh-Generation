@@ -5,7 +5,7 @@ using System.Collections;
 
 public class TerrainGenerator2D : AbstractMeshGenerator 
 {
-//private variables which are visible in the inspector for generating fractal noise
+//private variables which are visible and editable in the inspector for generating fractal noise
 	[SerializeField] private int resolution = 20;
 
 	[SerializeField] private float xScale = 1;
@@ -25,7 +25,7 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 	[SerializeField] private float uvScale = 1;
 	[SerializeField] private float numTexPerSquare = 1;//controls how many texture tiles each quad will show
 
-	[SerializeField] private int sortingOrder = 0;
+	[SerializeField] private int sortingOrder = 0; //make sure the grass is always rendered over the ground when they have the same Z position
 
 	protected override void SetMeshNums ()
 	{
@@ -83,12 +83,12 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 
 		for (int i=0; i<resolution; i++)
 		{
-			if (uvFollowSurface)
+			if (uvFollowSurface) //use the UVs that follow the surface
 			{
 				uvsArray [i] = new Vector2 (i * numTexPerSquare / uvScale, 1);
 				uvsArray [i + resolution] = new Vector2 (i * numTexPerSquare / uvScale, 0);	
 			}
-			else
+			else //use the simple UVs
 			{
 			//top row of the UVs - the x value = the ith vertices' x component, the y value = the ith vertices' y component
 			//divide by uvScale for more control
