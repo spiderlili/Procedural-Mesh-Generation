@@ -20,7 +20,7 @@ public abstract class AbstractMeshGenerator : MonoBehaviour
 	protected int numTriangles;
 
 	private MeshFilter meshFilter;
-	protected MeshRenderer meshRenderer;
+	protected MeshRenderer meshRenderer; //can access it in the subclass
 	private MeshCollider meshCollider;
 	private Mesh mesh;
 
