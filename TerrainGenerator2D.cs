@@ -72,7 +72,7 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 		}
 	}
 
-
+	//add simple UVs to the 2D terrain to be able to add a textured material.
 	protected override void SetUVs ()
 	{
 		meshRenderer.sortingOrder = sortingOrder;
@@ -88,11 +88,15 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 			}
 			else
 			{
+			//top row of the UVs - the x value = the ith vertices' x component, the y value = the ith vertices' y component
+			//divide by uvScale for more control
 				uvsArray [i] = new Vector2 (vertices [i].x/uvScale, vertices [i].y/uvScale);
+			//bottomo row of the UVs - the same vector but the y component should be from i+resolution element's vertices
+			//these UVs will mean the texture is simply repeated and oriented upright
 				uvsArray [i + resolution] = new Vector2 (vertices [i].x/uvScale, vertices [i + resolution].y/uvScale);
 			}
 		}
-
+		//add all of the UV's array to the uvs list
 		uvs.AddRange (uvsArray);
 	}
 
