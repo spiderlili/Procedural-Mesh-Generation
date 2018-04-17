@@ -23,7 +23,7 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 
 	[SerializeField] private bool uvFollowSurface;
 	[SerializeField] private float uvScale = 1;
-	[SerializeField] private float numTexPerSquare = 1;
+	[SerializeField] private float numTexPerSquare = 1;//controls how many texture tiles each quad will show
 
 	[SerializeField] private int sortingOrder = 0;
 
@@ -73,6 +73,8 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 	}
 
 	//add simple UVs to the 2D terrain to be able to add a textured material.
+	//allow the UVs to follow the curve of the mesh with numTexPerSquare
+	
 	protected override void SetUVs ()
 	{
 		meshRenderer.sortingOrder = sortingOrder;
