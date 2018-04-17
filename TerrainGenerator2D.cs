@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//generate a flat 2D mesh for interesting terrain made up of quad shapes in a long line.
+//generate interesting terrain made up of quad shapes in a long line for a flat 2D mesh  
 
 public class TerrainGenerator2D : AbstractMeshGenerator 
 {
+//visible in the inspector
 	[SerializeField] private int resolution = 20;
 
 	[SerializeField] private float xScale = 1;
@@ -27,40 +28,43 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 
 	protected override void SetMeshNums ()
 	{
-		numVertices = 2 * resolution; //there are resolution number of vertices across the top, *2 for top+bottom
+		numVertices = 2 * resolution; //resolution number of vertices across the top, *2 for top+bottom - Twice the resolution
 		numTriangles = 6 * (resolution - 1); //This is 3 ints per geometric triangle * 2 geometric triangles per square * the resolution - 1 (number of vertices across the top - 1 to get the number of sections)
 	}
 
 	protected override void SetVertices ()
 	{
 		float x, y = 0;
-		Vector3[] vs = new Vector3[numVertices];
+		Vector3[] vs = new Vector3[numVertices]; //store the vertices in the order of top row then bottom row
 
 		Random.InitState (seed);
 		NoiseGenerator noise = new NoiseGenerator (octaves, lacunarity, gain, perlinScale);
-
+		
+		
 		for (int i=0; i<resolution; i++)
 		{
-			x = ((float)i / resolution) * xScale;
+			x = ((float)i / resolution) * xScale; //cast i to a float
 			y = yScale * noise.GetFractalNoise (x, 0);
 
-			//top
+			//top - add the top vertices to the ith index of vs, z component is 0 for 2D
 			vs [i] = new Vector3 (x, y, 0);
 			//bottom
 			vs [i + resolution] = new Vector3 (x, y - meshHeight, 0);
 		}
 
-		vertices.AddRange (vs);
+		vertices.AddRange (vs); //add all of the vs to the vertices list 
 	}
 
 	protected override void SetTriangles ()
 	{
 		for (int i = 0; i < resolution-1; i++) 
 		{
-			triangles.Add (i);
+		//makes the bottom left triangle
+			triangles.Add (i); //add the triangles for one quad shape in each loop
 			triangles.Add (i + resolution + 1);
 			triangles.Add (i + resolution);
-
+			
+		//makes the top right triangle
 			triangles.Add (i);
 			triangles.Add (i + 1);
 			triangles.Add (i + resolution + 1);
