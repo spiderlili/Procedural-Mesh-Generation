@@ -101,7 +101,8 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 		//add all of the UV's array to the uvs list
 		uvs.AddRange (uvsArray);
 	}
-
+	
+	//add an ability to use an normal map
 	protected override void SetNormals ()	
 	{
 		SetGeneralNormals ();
