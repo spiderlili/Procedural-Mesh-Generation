@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//generate a flat 2D mesh for interesting terrain made up of quad shapes in a long line.
+
 public class TerrainGenerator2D : AbstractMeshGenerator 
 {
 	[SerializeField] private int resolution = 20;
