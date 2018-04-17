@@ -5,7 +5,7 @@ using System.Collections;
 
 public class TerrainGenerator2D : AbstractMeshGenerator 
 {
-//visible in the inspector
+//private variables which are visible in the inspector for generating fractal noise
 	[SerializeField] private int resolution = 20;
 
 	[SerializeField] private float xScale = 1;
@@ -13,7 +13,7 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 
 	[SerializeField] private float meshHeight = 1;
 
-	[SerializeField, Range(1, 8)] private int octaves = 1;
+	[SerializeField, Range(1, 8)] private int octaves = 1; //won't notice the effect if higher than 8
 	[SerializeField] private float lacunarity = 2;
 	[SerializeField, Range(0, 1)] private float gain = 0.5f; //needs to be between 0 and 1 so that each octave contributes less to the final shape.
 	[SerializeField] private float perlinScale = 1;
@@ -38,7 +38,7 @@ public class TerrainGenerator2D : AbstractMeshGenerator
 		Vector3[] vs = new Vector3[numVertices]; //store the vertices in the order of top row then bottom row
 
 		Random.InitState (seed);
-		NoiseGenerator noise = new NoiseGenerator (octaves, lacunarity, gain, perlinScale);
+		NoiseGenerator noise = new NoiseGenerator (octaves, lacunarity, gain, perlinScale); 
 		
 		
 		for (int i=0; i<resolution; i++)
