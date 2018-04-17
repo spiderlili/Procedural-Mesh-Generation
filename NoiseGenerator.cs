@@ -18,12 +18,14 @@ public class NoiseGenerator
 		this.perlinScale = perlinScale;
 	}
 
+	//can call from another script to get a value
 	public float GetValueNoise()
 	{
-		return Random.value;
+	//use Unity's own random class to return a value between 0 - 1
+		return Random.value; 
 	}
 
-	public float GetPerlinNoise(float x, float z)
+	public float GetPerlinNoise(float x, float z) //coordinates for the landscapes(one of the value would be 0 for 2D terrains)
 	{
 		//Mathf.PerlinNoise gives a float between 0 and 1. For better fractal terrain, change this to values between -1 and +1
 		return (2 * Mathf.PerlinNoise (x, z) - 1);
