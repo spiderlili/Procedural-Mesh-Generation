@@ -83,6 +83,7 @@ public class ProceduralLandscapeGenerator : AbstractLandscapeMeshGenerator
 		{
 			for (int x = 0; x <= xResolution; x++) 
 			{
+			//add a vector2 directly to the UVs list and space the uvs out on a mesh
 				uvs.Add(new Vector2 (x / (uvScale * xResolution), z / (uvScale * zResolution)));
 			}
 		}
@@ -90,15 +91,18 @@ public class ProceduralLandscapeGenerator : AbstractLandscapeMeshGenerator
 
 	protected override void SetVertexColours ()	
 	{
-		float diff = gradMax - gradMin;
+	//use an editable gradient to pick which colour to drawn when
+		float diff = gradMax - gradMin; //control how the gradient is used
 		for (int i=0; i<numVertices; i++)
 		{
+		//add the vertexColours list
+		//pass in the vertices height at the current vertex - the minimum value / diff
 			vertexColours.Add(gradient.Evaluate ((vertices[i].y - gradMin)/diff));
 		}
 	}
 
 
 	protected override void SetNormals ()	{	}
-	protected override void SetTangents ()	{	}
+	protected override void SetTangents ()	{	} //add the ability to use normal maps
 
 }
