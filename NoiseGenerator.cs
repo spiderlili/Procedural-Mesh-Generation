@@ -13,8 +13,8 @@ public class NoiseGenerator
 	private float perlinScale; //overall noise scale
 
 
-	public NoiseGenerator(){} //if don't want fractal style noise with specified octave/gain, add an empty constructor
-	
+	public NoiseGenerator(){} 
+	//if don't want fractal style noise with specified octave/gain, add an empty constructor
 	//create an instance of the class when using it
 	public NoiseGenerator(int octaves, float lacunarity, float gain, float perlinScale)
 	{
