@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ProceduralLandscapeGenerator : AbstractLandscapeMeshGenerator 
 {
+	//control both the x and z resolutions
 	/*[SerializeField] private int xResolution = 20;
 	[SerializeField] private int zResolution = 20;
 
@@ -25,21 +26,22 @@ public class ProceduralLandscapeGenerator : AbstractLandscapeMeshGenerator
 	[SerializeField] private float gradMax = 5;
 
 
-	protected override void SetMeshNums ()
-	{
-		numVertices = (xResolution + 1) * (zResolution + 1);  //number of vertices in x direction multiplied by number in z
+	protected override void SetMeshNums (){
+	//form a grid
+		numVertices = (xResolution + 1) * (zResolution + 1);  //set the number of vertices in x direction - multiplied by number in z
 		numTriangles = 6 * xResolution * zResolution; //This is 3 ints per geometric triangle * 2 geometric triangles per square * the number of triangles needed in the x direction * in the z direction
 	}
 
 	protected override void SetVertices ()
 	{
-		float xx, y, zz = 0;
+		float xx, y, zz = 0; //used to calculate thte grid and the noise
 		NoiseGenerator noise = new NoiseGenerator (octaves, lacunarity, gain, perlinScale);
 
 		for (int z=0; z <= zResolution; z++)
 		{
 			for (int x = 0; x <= xResolution; x++) 
 			{
+			//meshScale can't eqaul the resolution variables - it makes the x and z values ints when put into the perlin noise calculation
 				xx = ((float)x / xResolution) * meshScale;
 				zz = ((float)z / zResolution) * meshScale; 
 
@@ -52,17 +54,20 @@ public class ProceduralLandscapeGenerator : AbstractLandscapeMeshGenerator
 
 	protected override void SetTriangles ()
 	{
-		int triCount = 0;
+		int triCount = 0; //add the correct number of triangles which increase in each x and z loop
 		for (int z = 0; z < zResolution; z++) 
 		{
 			for (int x = 0; x < xResolution; x++) 
 			{
+			//grid is drawn from the bottom left to the right and forwards
+			//the first bottom left triangle
 				triangles.Add (triCount);
 				triangles.Add (triCount + xResolution + 1);
 				triangles.Add (triCount + 1);
 
+			//the other triangle
 				triangles.Add (triCount + 1);
-				triangles.Add (triCount + xResolution + 1);
+				triangles.Add (triCount + xResolution + 1); 
 				triangles.Add (triCount + xResolution + 2);
 
 				triCount++;
