@@ -15,7 +15,9 @@ public class ProceduralLandscapeGenerator : AbstractLandscapeMeshGenerator
 	[SerializeField, Range(0, 1)] private float gain = 0.5f; //needs to be between 0 and 1 so that each octave contributes less to the final shape.
 	[SerializeField] private float perlinScale = 1;
 
-	[SerializeField] private FallOffType type;
+//fractal island - reduce the y value towards the edge of the grid
+
+	[SerializeField] private FallOffType type; 
 	[SerializeField] private float fallOffSize;
 	[SerializeField] private float seaLevel;*/
 
