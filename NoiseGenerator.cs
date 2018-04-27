@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//true fractal noise settings: lacunarity = 2, gain = 0.5, perlinScale = 1 
+//true fractal noise settings: lacunarity = 2, gain = 0.5, perlinScale = 1  
 //these variables gives flexibility when generating landscapes
 
 public class NoiseGenerator
